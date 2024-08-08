@@ -8,7 +8,7 @@ global:
 ############################nacos###########################
 rabbitmq:
   image:
-    repository: codewisdom/rabbitmq
+    repository: strg/rabbitmq
     tag: 3
     pullPolicy: IfNotPresent
   replicaCount: 1
@@ -26,11 +26,10 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
 
+annotations: {}
 
-annotations: { }
+nodeSelector: {}
 
-nodeSelector: { }
+tolerations: []
 
-tolerations: [ ]
-
-affinity: { }
+affinity: {}

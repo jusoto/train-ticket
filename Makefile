@@ -1,6 +1,6 @@
-# Codewisdom Train-Ticket system
+# strg Train-Ticket system
 
-Repo=codewisdom
+Repo=strg
 Tag=latest
 Namespace="default"
 DeployArgs=""

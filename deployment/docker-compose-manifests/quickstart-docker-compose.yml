@@ -33,6 +33,7 @@ services:
       - my-network
 
   ts-ui-dashboard:
+    build: ts-ui-dashboard
     image: ${NAMESPACE}/ts-ui-dashboard:${TAG}
     restart: always
     ports:
@@ -41,8 +42,11 @@ services:
       - my-network
 
   ts-auth-service:
+    build: ts-auth-service
     image: ${NAMESPACE}/ts-auth-service:${TAG}
     restart: always
+    depends_on:
+      - ts-auth-mysql
     ports:
       - 12340:12340
     networks:
@@ -54,8 +58,11 @@ services:
       - my-network
 
   ts-user-service:
+    build: ts-user-service
     image: ${NAMESPACE}/ts-user-service:${TAG}
     restart: always
+    depends_on:
+      - ts-user-mysql
     ports:
       - 12342:12342
     networks:
@@ -67,6 +74,7 @@ services:
       - my-network
 
   ts-verification-code-service:
+    build: ts-verification-code-service
     image: ${NAMESPACE}/ts-verification-code-service:${TAG}
     restart: always
     ports:
@@ -81,6 +89,7 @@ services:
 #      - my-network
 
   ts-route-service:
+    build: ts-route-service
     image: ${NAMESPACE}/ts-route-service:${TAG}
     restart: always
     ports:
@@ -94,8 +103,11 @@ services:
         - my-network
 
   ts-contacts-service:
+    build: ts-contacts-service
     image: ${NAMESPACE}/ts-contacts-service:${TAG}
     restart: always
+    depends_on:
+      - ts-contacts-mysql
     ports:
       - 12347:12347
     networks:
@@ -107,8 +119,11 @@ services:
         - my-network
 
   ts-order-service:
+    build: ts-order-service
     image: ${NAMESPACE}/ts-order-service:${TAG}
     restart: always
+    depends_on:
+      - ts-order-mysql
     ports:
       - 12031:12031
     networks:
@@ -121,8 +136,11 @@ services:
 
 
   ts-order-other-service:
+    build: ts-order-other-service
     image: ${NAMESPACE}/ts-order-other-service:${TAG}
     restart: always
+    depends_on:
+      - ts-order-other-mysql
     ports:
       - 12032:12032
     networks:
@@ -135,8 +153,11 @@ services:
 
 
   ts-config-service:
+    build: ts-config-service
     image: ${NAMESPACE}/ts-config-service:${TAG}
     restart: always
+    depends_on:
+      - ts-config-mysql
     ports:
       - 15679:15679
     networks:
@@ -148,8 +169,11 @@ services:
       - my-network
 
   ts-station-service:
+    build: ts-station-service
     image: ${NAMESPACE}/ts-station-service:${TAG}
     restart: always
+    depends_on:
+      - ts-station-mysql
     ports:
       - 12345:12345
     networks:
@@ -161,8 +185,11 @@ services:
       - my-network
 
   ts-train-service:
+    build: ts-train-service
     image: ${NAMESPACE}/ts-train-service:${TAG}
     restart: always
+    depends_on:
+      - ts-train-mysql
     ports:
       - 14567:14567
     networks:
@@ -174,8 +201,11 @@ services:
       - my-network
 
   ts-travel-service:
+    build: ts-travel-service
     image: ${NAMESPACE}/ts-travel-service:${TAG}
     restart: always
+    depends_on:
+      - ts-travel-mysql
     ports:
       - 12346:12346
     networks:
@@ -187,12 +217,15 @@ services:
       - my-network
 
   ts-travel2-service:
-      image: ${NAMESPACE}/ts-travel2-service:${TAG}
-      restart: always
-      ports:
-        - 16346:16346
-      networks:
-        - my-network
+    build: ts-travel2-service
+    image: ${NAMESPACE}/ts-travel2-service:${TAG}
+    restart: always
+    depends_on:
+      - ts-travel2-mysql
+    ports:
+      - 16346:16346
+    networks:
+      - my-network
 
   ts-travel2-mysql:
       image: mysql:5.7
@@ -200,6 +233,7 @@ services:
         - my-network
 
   ts-preserve-service:
+    build: ts-preserve-service
     image: ${NAMESPACE}/ts-preserve-service:${TAG}
     restart: always
     ports:
@@ -208,6 +242,7 @@ services:
       - my-network
 
   ts-preserve-other-service:
+    build: ts-preserve-other-service
     image: ${NAMESPACE}/ts-preserve-other-service:${TAG}
     restart: always
     ports:
@@ -217,12 +252,13 @@ services:
 
 
   ts-basic-service:
-      image: ${NAMESPACE}/ts-basic-service:${TAG}
-      restart: always
-      ports:
-        - 15680:15680
-      networks:
-          - my-network
+    build: ts-basic-service
+    image: ${NAMESPACE}/ts-basic-service:${TAG}
+    restart: always
+    ports:
+      - 15680:15680
+    networks:
+      - my-network
 
 #  ts-ticketinfo-service:
 #        image: ${NAMESPACE}/ts-ticketinfo-service:${TAG}
@@ -233,8 +269,11 @@ services:
 #          - my-network
 
   ts-price-service:
+        build: ts-price-service
         image: ${NAMESPACE}/ts-price-service:${TAG}
         restart: always
+        depends_on:
+          - ts-price-mysql
         ports:
           - 16579:16579
         networks:
@@ -246,8 +285,11 @@ services:
           - my-network
 
   ts-notification-service:
+        build: ts-notification-service
         image: ${NAMESPACE}/ts-notification-service:${TAG}
         restart: always
+        depends_on:
+          - ts-notification-mysql
         ports:
           - 17853:17853
         networks:
@@ -259,8 +301,11 @@ services:
       - my-network
 
   ts-security-service:
+        build: ts-security-service
         image: ${NAMESPACE}/ts-security-service:${TAG}
         restart: always
+        depends_on:
+          - ts-security-mysql
         ports:
           - 11188:11188
         networks:
@@ -272,8 +317,11 @@ services:
           - my-network
 
   ts-inside-payment-service:
+        build: ts-inside-payment-service
         image: ${NAMESPACE}/ts-inside-payment-service:${TAG}
         restart: always
+        depends_on:
+          - ts-inside-payment-mysql
         ports:
           - 18673:18673
         networks:
@@ -285,6 +333,7 @@ services:
           - my-network
 
   ts-execute-service:
+        build: ts-execute-service
         image: ${NAMESPACE}/ts-execute-service:${TAG}
         restart: always
         ports:
@@ -293,8 +342,11 @@ services:
           - my-network
 
   ts-payment-service:
+        build: ts-payment-service
         image: ${NAMESPACE}/ts-payment-service:${TAG}
         restart: always
+        depends_on:
+          - ts-payment-mysql
         ports:
           - 19001:19001
         networks:
@@ -306,6 +358,7 @@ services:
           - my-network
 
   ts-rebook-service:
+        build: ts-rebook-service
         image: ${NAMESPACE}/ts-rebook-service:${TAG}
         restart: always
         ports:
@@ -319,6 +372,7 @@ services:
           - my-network
 
   ts-cancel-service:
+        build: ts-cancel-service
         image: ${NAMESPACE}/ts-cancel-service:${TAG}
         restart: always
         ports:
@@ -327,8 +381,11 @@ services:
           - my-network
 
   ts-assurance-service:
+        build: ts-assurance-service
         image: ${NAMESPACE}/ts-assurance-service:${TAG}
         restart: always
+        depends_on:
+          - ts-assurance-mysql
         ports:
           - 18888:18888
         networks:
@@ -340,6 +397,7 @@ services:
           - my-network
 
   ts-seat-service:
+        build: ts-seat-service
         image: ${NAMESPACE}/ts-seat-service:${TAG}
         restart: always
         ports:
@@ -348,6 +406,7 @@ services:
           - my-network
 
   ts-travel-plan-service:
+        build: ts-travel-plan-service
         image: ${NAMESPACE}/ts-travel-plan-service:${TAG}
         restart: always
         ports:
@@ -369,8 +428,11 @@ services:
 #            - my-network
 
   ts-news-service:
+    build: ts-news-service
     image: ${NAMESPACE}/ts-news-service:${TAG}
     restart: always
+    depends_on:
+      - ts-news-mysql
     ports:
       - 12862:12862
     networks:
@@ -381,16 +443,8 @@ services:
         networks:
           - my-network
 
-  ts-voucher-mysql:
-         image: mysql
-         expose:
-            - "3306"
-         environment:
-           MYSQL_ROOT_PASSWORD: root
-         networks:
-           - my-network
-
   ts-voucher-service:
+          build: ts-voucher-service
           image: ${NAMESPACE}/ts-voucher-service:${TAG}
           restart: always
           ports:
@@ -401,6 +455,15 @@ services:
             - /var/lib/mysql
           networks:
             - my-network
+
+  ts-voucher-mysql:
+         image: mysql
+         expose:
+            - "3306"
+         environment:
+           MYSQL_ROOT_PASSWORD: Abcd1234#
+         networks:
+           - my-network
 
 #  ts-food-map-service:
 #        image: ${NAMESPACE}/ts-food-map-service:${TAG}
@@ -416,6 +479,7 @@ services:
 #            - my-network
 
   ts-route-plan-service:
+          build: ts-route-plan-service
           image: ${NAMESPACE}/ts-route-plan-service:${TAG}
           restart: always
           ports:
@@ -424,16 +488,22 @@ services:
             - my-network
 
   ts-food-service:
+    build: ts-food-service
     image: ${NAMESPACE}/ts-food-service:${TAG}
     restart: always
+    depends_on:
+      - ts-food-mysql
     ports:
       - 18856:18856
     networks:
       - my-network
 
   ts-consign-service:
+    build: ts-consign-service
     image: ${NAMESPACE}/ts-consign-service:${TAG}
     restart: always
+    depends_on: 
+      - ts-consign-mysql
     ports:
       - 16111:16111
     networks:
@@ -445,8 +515,11 @@ services:
       - my-network
 
   ts-consign-price-service:
+    build: ts-consign-price-service
     image: ${NAMESPACE}/ts-consign-price-service:${TAG}
     restart: always
+    depends_on:
+      - ts-consign-price-mysql
     ports:
       - 16110:16110
     networks:
@@ -463,6 +536,7 @@ services:
       - my-network
 
   ts-admin-basic-info-service:
+    build: ts-admin-basic-info-service
     image: ${NAMESPACE}/ts-admin-basic-info-service:${TAG}
     restart: always
     ports:
@@ -471,6 +545,7 @@ services:
       - my-network
 
   ts-admin-order-service:
+    build: ts-admin-order-service
     image: ${NAMESPACE}/ts-admin-order-service:${TAG}
     restart: always
     ports:
@@ -479,6 +554,7 @@ services:
       - my-network
 
   ts-admin-route-service:
+    build: ts-admin-route-service
     image: ${NAMESPACE}/ts-admin-route-service:${TAG}
     restart: always
     ports:
@@ -491,6 +567,7 @@ services:
       - my-network
 
   ts-admin-travel-service:
+    build: ts-admin-travel-service
     image: ${NAMESPACE}/ts-admin-travel-service:${TAG}
     restart: always
     ports:
@@ -503,6 +580,7 @@ services:
       - my-network
 
   ts-admin-user-service:
+    build: ts-admin-user-service
     image: ${NAMESPACE}/ts-admin-user-service:${TAG}
     restart: always
     ports:
@@ -515,6 +593,7 @@ services:
       - my-network
 
   ts-avatar-service:
+    build: ts-avatar-service
     image: ${NAMESPACE}/ts-avatar-service:${TAG}
     restart: always
     ports:
@@ -523,8 +602,11 @@ services:
       - my-network
 
   ts-delivery-service:
+    build: ts-delivery-service
     image: ${NAMESPACE}/ts-delivery-servicee:${TAG}
     restart: always
+    depends_on:
+      - ts-delivery-mysql
     ports:
       - 18808:18808
     networks:
@@ -536,8 +618,11 @@ services:
       - my-network
 
   ts-food-delivery-service:
+    build: ts-food-delivery-service
     image: ${NAMESPACE}/ts-food-delivery-service:${TAG}
     restart: always
+    depends_on:
+      - ts-food-delivery-mysql
     ports:
       - 18957:18957
     networks:
@@ -549,10 +634,11 @@ services:
       - my-network
 
   ts-gateway-service:
+    build: ts-gateway-service
     image: ${NAMESPACE}/ts-gateway-service:${TAG}
     restart: always
     ports:
-      - 18888:18888
+      - 18958:18958
     networks:
       - my-network
 
@@ -563,8 +649,11 @@ services:
 
 
   ts-station-food-service:
+    build: ts-station-food-service
     image: ${NAMESPACE}/ts-station-food-service:${TAG}
     restart: always
+    depends_on:
+      - ts-station-food-mysql
     ports:
       - 18855:18855
     networks:
@@ -577,8 +666,11 @@ services:
 
 
   ts-train-food-service:
+    build: ts-train-food-service
     image: ${NAMESPACE}/ts-train-food-service:${TAG}
     restart: always
+    depends_on:
+      - ts-train-food-mysql
     ports:
       - 19999:19999
     networks:

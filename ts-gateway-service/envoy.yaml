@@ -1,0 +1,72 @@
+# for envoy 1.19+ using v3 API
+admin:
+  access_log_path: /tmp/admin_access_envoy_edge.log
+  address:
+    socket_address: { address: 0.0.0.0, port_value: 9901 }
+
+node:
+  id: "envoy-edge-instance"
+  cluster: edge_cluster
+  metadata:
+    role: ts-gateway-service
+
+static_resources:
+  clusters:
+    - name: edge_cluster
+      connect_timeout: 0.25s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: edge_cluster
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: 127.0.0.1  # Replace with your service IP address
+                      port_value: 8080     # Replace with your service port
+    - name: logging_cluster
+      connect_timeout: 0.25s
+      type: STRICT_DNS
+      lb_policy: ROUND_ROBIN
+      load_assignment:
+        cluster_name: logging_cluster
+        endpoints:
+          - lb_endpoints:
+              - endpoint:
+                  address:
+                    socket_address:
+                      address: micros1
+                      port_value: 9411
+
+  listeners:
+    - name: listener_0
+      address:
+        socket_address: { address: 0.0.0.0, port_value: 80 }
+      filter_chains:
+        - filters:
+            - name: envoy.filters.network.http_connection_manager
+              typed_config:
+                "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
+                tracing:
+                  provider:
+                    name: envoy.tracers.zipkin
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.config.trace.v3.ZipkinConfig
+                      collector_cluster: logging_cluster
+                      collector_endpoint: "/api/v2/spans"
+                      collector_endpoint_version: HTTP_JSON
+                codec_type: AUTO
+                stat_prefix: ingress_http
+                route_config:
+                  name: local_route
+                  virtual_hosts:
+                    - name: ts-gateway-service
+                      domains: ["*"]
+                      routes:
+                        - match: { prefix: "/" }
+                          route: { cluster: edge_cluster }
+                http_filters:
+                  - name: envoy.filters.http.router
+                    typed_config:
+                      "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router

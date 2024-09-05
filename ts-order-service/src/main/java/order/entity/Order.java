@@ -31,9 +31,7 @@ public class Order {
 
     private String boughtDate;
 
-
     private String travelDate;
-
 
     private String travelTime;
 
@@ -70,19 +68,32 @@ public class Order {
 
     private String price;
 
-
-
-    public Order(){
+    public Order() {
         boughtDate = StringUtils.Date2String(new Date(System.currentTimeMillis()));
         travelDate = StringUtils.Date2String(new Date(123456789));
         trainNumber = "G1235";
         coachNumber = 5;
         seatClass = SeatClass.FIRSTCLASS.getCode();
         seatNumber = "1";
-        from = "shanghai";
-        to = "taiyuan";
+        from = "miami";
+        to = "orlando";
         status = OrderStatus.PAID.getCode();
-        price = "0.0";
+        price = "80.0";
+    }
+
+    public Order(String boughtDate, String travelDate, String contactsName,
+            String trainNumber, int coachNumber, int seatClass, String seatNumber, String from, String to,
+            String price) {
+        this.boughtDate = StringUtils.Date2String(new Date(System.currentTimeMillis()));
+        this.travelDate = StringUtils.Date2String(travelDate);
+        this.contactsName = contactsName;
+        this.trainNumber = trainNumber;
+        this.coachNumber = coachNumber;
+        this.seatClass = seatClass;
+        this.seatNumber = seatNumber;
+        this.from = from;
+        this.to = to;
+        this.price = price;
     }
 
     @Override
@@ -100,14 +111,14 @@ public class Order {
         return getBoughtDate().equals(other.getBoughtDate())
                 && getBoughtDate().equals(other.getTravelDate())
                 && getTravelTime().equals(other.getTravelTime())
-                && accountId .equals( other.getAccountId() )
+                && accountId.equals(other.getAccountId())
                 && contactsName.equals(other.getContactsName())
                 && contactsDocumentNumber.equals(other.getContactsDocumentNumber())
                 && documentType == other.getDocumentType()
                 && trainNumber.equals(other.getTrainNumber())
                 && coachNumber == other.getCoachNumber()
                 && seatClass == other.getSeatClass()
-                && seatNumber .equals(other.getSeatNumber())
+                && seatNumber.equals(other.getSeatNumber())
                 && from.equals(other.getFrom())
                 && to.equals(other.getTo())
                 && status == other.getStatus()

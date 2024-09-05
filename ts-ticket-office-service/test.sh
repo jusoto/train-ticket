@@ -1,7 +1,7 @@
 
 curl -X POST -H "content-type: application/json" \
  http://127.0.0.1:16108/office/updateOffice \
- -d '{"province": "shanghai", "city":"shanghai", "region": "Pudong New Area",
+ -d '{"province": "florida", "city":"miami", "region": "region1",
      "oldOfficeName":  "test1",
      "newOffice": {
            "name": "test2",

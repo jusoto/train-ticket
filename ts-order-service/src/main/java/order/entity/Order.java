@@ -85,7 +85,7 @@ public class Order {
             String trainNumber, int coachNumber, int seatClass, String seatNumber, String from, String to,
             String price) {
         this.boughtDate = StringUtils.Date2String(new Date(System.currentTimeMillis()));
-        this.travelDate = StringUtils.Date2String(travelDate);
+        this.travelDate = StringUtils.Date2String(new Date(123456789));
         this.contactsName = contactsName;
         this.trainNumber = trainNumber;
         this.coachNumber = coachNumber;
